@@ -7,5 +7,21 @@
     android:label="@string/app_name"
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
-    android:theme="@style/AppTheme" />
+    android:theme="@style/AppTheme" >
+    <meta-data
+      android:name="com.qihoo360.plugin.name"
+      android:value="user" />
+
+    <meta-data
+      android:name="com.qihoo360.plugin.version.ver"
+      android:value="100" />
+    <activity android:name=".main.UserMainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+  </application>
+
+
 </manifest>

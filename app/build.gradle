@@ -4,18 +4,49 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.aike.plugin.user"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    signingConfigs{
+        xkyConfig{
+            storeFile file("aike.jks")
+            storePassword "123456"
+            keyAlias "aike"
+            keyPassword "123456"
+            v1SigningEnabled false
+            v2SigningEnabled true
         }
     }
+    buildTypes {
+        debug{
+            debuggable true
+            zipAlignEnabled true
+            debuggable true
+            minifyEnabled false //是否混淆
+            shrinkResources false //是否去除无效的资源文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.xkyConfig
+        }
+        release {
+            zipAlignEnabled true
+            debuggable false
+            minifyEnabled false //是否混淆
+            shrinkResources false //是否去除无效的资源文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.xkyConfig
+        }
+    }
+}
+
+apply plugin: 'replugin-plugin-gradle'
+
+repluginPluginConfig {
+    pluginName = "user"
+    hostApplicationId = "com.aike.xky"
+    hostAppLauncherActivity = "com.aike.xky.splash.AikeSplashActivity"
 }
 
 dependencies {
@@ -24,4 +55,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    compile 'com.qihoo360.replugin:replugin-plugin-lib:2.2.4'
+
 }
