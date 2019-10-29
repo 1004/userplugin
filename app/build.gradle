@@ -1,4 +1,9 @@
 apply plugin: 'com.android.application'
+apply from: "../augment.gradle"
+
+/**
+ * 插件输出的文件名*/
+def fileName = "user.jar"
 
 android {
     compileSdkVersion 28
@@ -39,6 +44,17 @@ android {
             signingConfig signingConfigs.xkyConfig
         }
     }
+    //配置自定义打包名称
+    android.applicationVariants.all {
+      variant ->
+      //这个修改输出的APK路径
+      variant.getPackageApplication().outputDirectory =
+          new File(project.buildDir.absolutePath + "/outputs/apk")
+      variant.getPackageApplication().outputScope.apkDatas.
+          forEach { apkData -> apkData.outputFileName = fileName
+          }
+    }
+
 }
 
 apply plugin: 'replugin-plugin-gradle'

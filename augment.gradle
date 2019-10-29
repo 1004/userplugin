@@ -1,0 +1,94 @@
+/**
+ * 生成的插件文件名
+ */
+def plugnExistName = "user.jar"
+
+/**
+ * adb push更新时的插件名
+ */
+def plugnPushName = "user.jar"
+/**
+ * 宿主工程包名
+ */
+def packageName = "com.aike.xky"
+
+/**
+ * 启动页
+ */
+def launcherActivity = "com.aike.xky.splash.AikeSplashActivity"
+
+tasks.all{
+  task->
+    if (task.name.startsWith("assemble") && !task.name.contains("Release")){
+      doLast{
+        pushPlugin.execute()
+      }
+    }
+}
+
+task pushPlugin{
+  group 'augment'
+  doFirst{
+    def apkExistPath = transferPath(new File(project.getBuildDir().absolutePath+"/outputs/apk", plugnExistName).absolutePath)
+    if(isWindows()){
+      apkExistPath = new File(project.getBuildDir().absolutePath+"/outputs/apk", plugnExistName).absolutePath
+    }
+    def command = "adb shell mkdir sdcard/aikeplugins | adb push -p $apkExistPath sdcard/aikeplugins/$plugnPushName | adb shell am force-stop $packageName"
+    exec {
+      try{
+        if(isWindows()){
+          commandLine 'cmd',"/c","$command"
+        }else{
+          executable 'bash'
+          args "-c", "$command"
+        }
+      }catch(Exception e){
+        println e.message
+        println("=====================push plugin failed with exception.=========================")
+      }
+    }
+    println("=====================push plugin successfull.=========================")
+  }
+  doLast{
+    restart.execute()
+  }
+}
+
+def transferPath(String path){
+  def file = new File(path);
+  if (file.separator == "\\") {
+    path = path.replace("\\", "/")
+    path = path.replace(":", "")
+    path = "/" + path
+  }
+  return path;
+}
+
+task restart{
+  group 'augment'
+  doLast{
+    def command = "adb shell am start -n $packageName/$launcherActivity"
+    if(isWindows()){
+      command = "adb shell am start -n $packageName/$launcherActivity | taskkill /f /im java.exe"
+    }
+    exec {
+      try {
+        if(isWindows()){
+          commandLine 'cmd',"/c","$command"
+        }else{
+          executable 'bash'
+          args "-c", "$command"
+        }
+      } catch (Exception e) {
+        println e.message
+        println("=====================restart failed with exception.=========================")
+      }
+    }
+    println("=====================restart successfull.=========================")
+  }
+}
+
+
+def isWindows() {
+  return System.properties['os.name'].contains('Windows')
+}
