@@ -1,6 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.aike.plugin.user">
-
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.READ_PHONE_STATE" />
   <application
     android:name=".application.UserApplication"
     android:allowBackup="true"
@@ -15,7 +19,7 @@
 
     <meta-data
       android:name="com.qihoo360.plugin.version.ver"
-      android:value="110" />
+      android:value="120" />
     <activity android:name=".main.UserMainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />

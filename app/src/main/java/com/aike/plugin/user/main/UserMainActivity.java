@@ -28,7 +28,7 @@ public class UserMainActivity extends Activity {
     findViewById(R.id.btn1).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Router.create("xky://course/main").navigate(UserMainActivity.this);
+        Router.create("xky://cource/main").navigate(UserMainActivity.this);
       }
     });
     findViewById(R.id.btn2).setOnClickListener(new View.OnClickListener() {
