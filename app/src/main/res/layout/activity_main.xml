@@ -8,7 +8,14 @@
     android:layout_height="wrap_content" />
   <Button
     android:id="@+id/btn1"
-    android:text="跳转到课程插件"
+    android:text="跳转到课程插件111"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+  </Button>
+  <Button
+    android:id="@+id/btn2"
+    android:text="发布事件到课程"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 

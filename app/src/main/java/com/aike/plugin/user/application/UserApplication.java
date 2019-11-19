@@ -2,6 +2,7 @@ package com.aike.plugin.user.application;
 
 import android.app.Application;
 import android.util.Log;
+import com.aike.plugin.user.utils.UserEventBusUtils;
 
 /**
  * @Author xiekongying001
@@ -12,6 +13,11 @@ public class UserApplication extends Application {
   @Override
   public void onCreate() {
     super.onCreate();
-    Log.i("UserApplication","UserApplication--oncreate");
+    init();
+  }
+
+
+  private void init() {
+    UserEventBusUtils.init();
   }
 }
