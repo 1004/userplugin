@@ -4,14 +4,18 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import com.aike.httpserver.AikeHttpService;
+import com.aike.httpserver.adapter.calladapter.ASimpleCallBack;
 import com.aike.plugin.event.cource.CoureseMainEvent;
 import com.aike.plugin.event.user.UserHomeEvent;
 import com.aike.plugin.user.R;
+import com.aike.plugin.user.net.api.ITestApi;
 import com.aike.plugin.user.utils.UserEventBusUtils;
 import com.aike.router.Route;
 import com.aike.router.Router;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import retrofit2.Response;
 
 /**
  * @Author xiekongying001
@@ -35,6 +39,23 @@ public class UserMainActivity extends Activity {
       @Override
       public void onClick(View v) {
         UserEventBusUtils.post(new CoureseMainEvent());
+      }
+    });
+    findViewById(R.id.btn3).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        AikeHttpService.createService(ITestApi.class).getKnowledgeSystem().enqueue(
+            new ASimpleCallBack() {
+              @Override
+              public void onResponse(Response response, Object entity) {
+                Log.i("HTTP","onResponse-"+entity.toString());
+              }
+
+              @Override
+              public void onError(Throwable e) {
+                Log.i("HTTP","onError-"+e.toString());
+              }
+            });
       }
     });
   }

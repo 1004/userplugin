@@ -18,6 +18,11 @@
     android:text="发布事件到课程"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
+  </Button>
+  <Button
+    android:id="@+id/btn3"
+    android:text="网络请求"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
   </Button>
 </LinearLayout>

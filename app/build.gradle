@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId "com.aike.plugin.user"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -74,4 +74,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     compile 'com.qihoo360.replugin:replugin-plugin-lib:2.2.4'
     compile 'com.aike.eventbus:aikeeventbus:1.0.0'
+    implementation 'com.aike.httpserver:httpserver:1.0.0'
 }

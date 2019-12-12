@@ -2,6 +2,8 @@ package com.aike.plugin.user.application;
 
 import android.app.Application;
 import android.util.Log;
+import com.aike.httpserver.AikeHttpService;
+import com.aike.plugin.user.net.UserNetConfig;
 import com.aike.plugin.user.utils.UserEventBusUtils;
 
 /**
@@ -19,5 +21,6 @@ public class UserApplication extends Application {
 
   private void init() {
     UserEventBusUtils.init();
+    AikeHttpService.initService("user",new UserNetConfig());
   }
 }
