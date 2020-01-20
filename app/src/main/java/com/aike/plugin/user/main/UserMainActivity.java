@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 import com.aike.httpserver.AikeHttpService;
 import com.aike.httpserver.adapter.calladapter.ASimpleCallBack;
 import com.aike.plugin.event.cource.CoureseMainEvent;
@@ -13,6 +15,9 @@ import com.aike.plugin.user.net.api.ITestApi;
 import com.aike.plugin.user.utils.UserEventBusUtils;
 import com.aike.router.Route;
 import com.aike.router.Router;
+import com.analytisc.sdk.mapping.AikeVirtualMappingClient;
+import com.analytisc.sdk.mapping.config.AikeVirtualMappingConfig;
+import com.qihoo360.replugin.RePlugin;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import retrofit2.Response;
@@ -32,7 +37,7 @@ public class UserMainActivity extends Activity {
     findViewById(R.id.btn1).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Router.create("xky://cource/main").navigate(UserMainActivity.this);
+        boolean navigate = Router.create("xky://cource/main").navigate(UserMainActivity.this);
       }
     });
     findViewById(R.id.btn2).setOnClickListener(new View.OnClickListener() {
@@ -44,7 +49,7 @@ public class UserMainActivity extends Activity {
     findViewById(R.id.btn3).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        AikeHttpService.createService(ITestApi.class).getKnowledgeSystem().enqueue(
+        AikeHttpService.createService("user",ITestApi.class).getKnowledgeSystem().enqueue(
             new ASimpleCallBack() {
               @Override
               public void onResponse(Response response, Object entity) {
@@ -56,6 +61,20 @@ public class UserMainActivity extends Activity {
                 Log.i("HTTP","onError-"+e.toString());
               }
             });
+      }
+    });
+    findViewById(R.id.btn4).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        AikeVirtualMappingClient.startVirtualMappingTools();
+     }
+    });
+    final Button btn5 = findViewById(R.id.btn5);
+    findViewById(R.id.btn5).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        AikeVirtualMappingClient.updataEnable(!AikeVirtualMappingConfig.isEnable);
+        btn5.setText(AikeVirtualMappingConfig.isEnable?"无埋点圈选关":"无埋点圈选开");
       }
     });
   }
