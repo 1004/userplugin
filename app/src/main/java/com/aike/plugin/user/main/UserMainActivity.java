@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import androidx.viewpager.widget.ViewPager;
 import com.aike.httpserver.AikeHttpService;
 import com.aike.httpserver.adapter.calladapter.ASimpleCallBack;
 import com.aike.plugin.event.cource.CoureseMainEvent;
